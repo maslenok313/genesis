@@ -42,9 +42,26 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
           </button>
+          <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-mobile-menu-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
     </header>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav class="mobile-menu-nav" aria-label="Мобильная навигация">
+        <a href="#top">Главная</a>
+        <a href="#work">Тарифы</a>
+        <a href="#coverage">Покрытие</a>
+        <a href="#process">Подключение</a>
+        <a href="#contact">Контакты</a>
+        <span class="mobile-menu-note">Подключение бесплатно</span>
+        <a class="mobile-menu-cta" href="#application-modal" data-open-application>Оставить заявку</a>
+      </nav>
+    </div>
 
     <main id="top">
       <section class="hero" aria-label="GENESIS website hero">

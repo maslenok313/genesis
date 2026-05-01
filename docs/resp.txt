@@ -1,23 +1,4 @@
-﻿/* Responsive styles: tablets, mobile screens, and height-based adjustments. */
-
-@media (max-width: 1400px) {
-  .nav {
-    justify-content: space-between;
-  }
-
-  .brand,
-  .nav-actions {
-    position: static;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .menu-toggle {
-    display: inline-flex;
-  }
-}
+/* Responsive styles: tablets, mobile screens, and height-based adjustments. */
 
 @media (max-width: 920px) {
   .site-header {
@@ -309,15 +290,17 @@
   }
 
   .nav-cta {
-    display: none;
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
   }
 
   .nav-actions {
     gap: 8px;
   }
 
-  .theme-toggle,
-  .menu-toggle {
+  .theme-toggle {
     width: 40px;
     height: 40px;
   }

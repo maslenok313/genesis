@@ -38,6 +38,9 @@ const applicationCloseButtons = document.querySelectorAll("[data-application-clo
 const successCloseButtons = document.querySelectorAll("[data-success-close]");
 const headerAnchorLinks = document.querySelectorAll('.site-header a[href^="#"]:not([data-open-application])');
 const themeToggle = document.querySelector(".theme-toggle");
+const mobileMenu = document.querySelector("#mobile-menu");
+const mobileMenuToggle = document.querySelector("[data-mobile-menu-toggle]");
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
 
 let lastFocusedElement = null;
 let checkedSettlement = "";
@@ -265,6 +268,37 @@ const closeApplicationSuccessModal = () => {
   restoreFocus();
 };
 
+const openMobileMenu = () => {
+  if (!mobileMenu || !mobileMenuToggle) {
+    return;
+  }
+
+  mobileMenu.hidden = false;
+  document.body.classList.add("mobile-menu-open");
+  mobileMenuToggle.setAttribute("aria-expanded", "true");
+  mobileMenuToggle.setAttribute("aria-label", "Закрыть меню");
+};
+
+const closeMobileMenu = () => {
+  if (!mobileMenu || !mobileMenuToggle) {
+    return;
+  }
+
+  mobileMenu.hidden = true;
+  document.body.classList.remove("mobile-menu-open");
+  mobileMenuToggle.setAttribute("aria-expanded", "false");
+  mobileMenuToggle.setAttribute("aria-label", "Открыть меню");
+};
+
+const toggleMobileMenu = () => {
+  if (document.body.classList.contains("mobile-menu-open")) {
+    closeMobileMenu();
+    return;
+  }
+
+  openMobileMenu();
+};
+
 const checkSettlementAvailability = (input) => {
   if (!input) {
     return;
@@ -302,6 +336,40 @@ headerAnchorLinks.forEach((link) => {
     event.preventDefault();
     scrollToSection(target);
   });
+});
+
+mobileMenuToggle?.addEventListener("click", toggleMobileMenu);
+
+mobileMenuLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (link.hasAttribute("data-open-application")) {
+      closeMobileMenu();
+      return;
+    }
+
+    const targetId = link.getAttribute("href");
+    const target = targetId ? document.querySelector(targetId) : null;
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    closeMobileMenu();
+    scrollToSection(target);
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && document.body.classList.contains("mobile-menu-open")) {
+    closeMobileMenu();
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 1400 && document.body.classList.contains("mobile-menu-open")) {
+    closeMobileMenu();
+  }
 });
 
 themeToggle?.addEventListener("click", () => {
