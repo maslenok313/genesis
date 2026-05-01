@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ГЕНЕЗИС</title>
+    <meta
+      name="description"
+      content="A polished starter template for building a modern GENESIS website."
+    >
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="ГЕНЕЗИС home">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-title">ГЕНЕЗИС</span>
+            <span class="brand-subtitle">ИНТЕРНЕТ • РЕШЕНИЯ • БУДУЩЕЕ</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#top">ГЛАВНАЯ</a>
+          <a href="#work">ТАРИФЫ</a>
+          <a href="#coverage">ПОКРЫТИЕ</a>
+          <a href="#process">ПОДКЛЮЧЕНИЕ</a>
+          <a href="#help">ПОДДЕРЖКА</a>
+          <a href="#contact">КОНТАКТЫ</a>
+        </div>
+        <div class="nav-actions">
+          <a class="nav-cta" href="#application-modal" data-open-application>ПОДКЛЮЧИТЬСЯ</a>
+          <button class="theme-toggle" type="button" aria-label="Переключить тёмную тему" aria-pressed="false">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="GENESIS website hero">
+        <div class="hero-inner hero-grid">
+          <div class="hero-content">
+            <h1>Интернет,<br>который не подводит<br><span class="hero-highlight">даже вечером</span></h1>
+            <p class="hero-copy">
+              Стабильная скорость без просадок и минимальный пинг. Подключим за 1 день и остаёмся на связи 24/7 — вам остаётся только оставить заявку.
+            </p>
+            <p class="hero-badge">Бесплатное подключение</p>
+            <div class="hero-phones" aria-label="Телефоны">
+              <a href="tel:+73656966184">+7 365 69 66 184 <span>многоканальный</span></a>
+              <a href="tel:+79902960447">+7 990 29 60 447 <span>мобильный</span></a>
+            </div>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#application-modal" data-open-application>Оставить заявку</a>
+              <form class="address-check" id="address-check-form">
+                <label class="address-search">
+                  <span class="search-icon" aria-hidden="true"></span>
+                  <input id="settlement-input" type="text" name="settlement" aria-label="Адрес населённого пункта" placeholder="Введите населённый пункт">
+                </label>
+                <button class="button button-secondary" type="submit">Проверить адрес</button>
+              </form>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="GENESIS platform highlights">
+            <div class="network-visual" aria-hidden="true">
+              <img src="assets/genesis-network-map.png" alt="">
+            </div>
+            <p class="panel-label">СВЯЗЬ НОВОГО ПОКОЛЕНИЯ</p>
+            <div class="hero-metrics">
+              <div>
+                <span class="metric-icon" aria-hidden="true">
+                  🚀
+                </span>
+                <strong>до 1 Гбит/с</strong>
+                <span>скорость подключения</span>
+              </div>
+              <div>
+                <span class="metric-icon" aria-hidden="true">
+                  📅
+                </span>
+                <strong>до 3 дней</strong>
+                <span>монтаж и запуск</span>
+              </div>
+              <div>
+                <span class="metric-icon" aria-hidden="true">
+                  📞
+                </span>
+                <strong>24/7</strong>
+                <span>техническая поддержка</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="services">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker">ИНТЕРНЕТ • РЕШЕНИЯ • БУДУЩЕЕ</p>
+            <h2>Почему выбирают ГЕНЕЗИС</h2>
+            <p class="trust-line">
+              <span>5000+</span> клиентов уже выбрали нас и это число растёт каждый день
+            </p>
+          </div>
+
+          <div class="grid grid-3">
+            <article class="card">
+              <div class="card-number" aria-hidden="true">⚡</div>
+              <h3>Стабильная скорость и низкий пинг</h3>
+              <p>
+                Интернет работает без просадок и задержек даже в часы пик — комфортно для игр, работы и просмотра видео в любое время суток.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-number" aria-hidden="true">📡</div>
+              <h3>Собственная сеть без посредников</h3>
+              <p>
+                Мы полностью управляем своей инфраструктурой — это даёт стабильность, честную скорость и быстрое решение любых технических вопросов.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-number" aria-hidden="true">💳</div>
+              <h3>Удобная оплата без лишних действий</h3>
+              <p>
+                Оплачивайте онлайн или наличными — при необходимости наш специалист приедет к вам, без поездок в офис и очередей.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-number" aria-hidden="true">🚀</div>
+              <h3>Быстрое подключение без ожиданий</h3>
+              <p>
+                Подключаем в кратчайшие сроки — чаще всего уже на следующий день, без переносов и долгого ожидания.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-number" aria-hidden="true">🛠</div>
+              <h3>Поддержка 24/7</h3>
+              <p>
+                Всегда на связи — быстро помогаем и решаем любые вопросы, чтобы интернет работал стабильно каждый день.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-number" aria-hidden="true">👨‍🔧</div>
+              <h3>Полная настройка под ключ</h3>
+              <p>
+                Берём всё на себя: подключение, настройка оборудования, Wi-Fi, телевизоров и компьютеров — вам не нужно разбираться в технике.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section tariff-section" id="work">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker">ТАРИФЫ</p>
+            <h2>Выберите скорость под свои задачи</h2>
+            <p class="tariff-note">
+              Не знаете, какой тариф выбрать? Оставьте заявку — подберём оптимальный вариант под ваши задачи.
+            </p>
+          </div>
+
+          <div class="tariff-list">
+            <div class="feature-band tariff-row tariff-row-home">
+              <div>
+                <h2 class="tariff-title">🏠 Дом</h2>
+              </div>
+              <aside class="feature-panel tariff-card" aria-label="Тариф Дом">
+                <h3>Для повседневного использования</h3>
+                <div class="tariff-speed">До 100 Мбит/с</div>
+                <div class="tariff-price">от 500 ₽/мес</div>
+                <ul class="tariff-features">
+                  <li>стабильный интернет для дома</li>
+                  <li>просмотр видео и соцсети</li>
+                  <li>подключение от 1 дня</li>
+                  <li>поддержка 24/7</li>
+                </ul>
+                <a class="button button-primary" href="#application-modal" data-open-application>Подключиться</a>
+              </aside>
+            </div>
+
+            <div class="feature-band tariff-row tariff-row-pro">
+              <div>
+                <h2 class="tariff-title">🚀 Продвинутый</h2>
+              </div>
+              <aside class="feature-panel tariff-card tariff-card-featured" aria-label="Тариф Продвинутый">
+                <span class="tariff-badge">🔥 основной тариф</span>
+                <h3>Оптимальный выбор для большинства</h3>
+                <div class="tariff-speed">До 300 Мбит/с</div>
+                <div class="tariff-price">от 700 ₽/мес</div>
+                <ul class="tariff-features">
+                  <li>высокая скорость без просадок</li>
+                  <li>комфорт для игр и работы</li>
+                  <li>несколько устройств без потери качества</li>
+                  <li>приоритетная поддержка</li>
+                </ul>
+                <a class="button button-primary" href="#application-modal" data-open-application>Подключиться</a>
+              </aside>
+            </div>
+
+            <div class="feature-band tariff-row tariff-row-business">
+              <div>
+                <h2 class="tariff-title">🏢 Бизнес</h2>
+              </div>
+              <aside class="feature-panel tariff-card tariff-card-business" aria-label="Тариф Бизнес">
+                <h3>Для максимальной нагрузки и стабильности</h3>
+                <div class="tariff-speed">До 1 Гбит/с</div>
+                <div class="tariff-price">от 1200 ₽/мес</div>
+                <ul class="tariff-features">
+                  <li>максимальная скорость</li>
+                  <li>минимальный пинг</li>
+                  <li>стабильность 24/7</li>
+                  <li>индивидуальные условия</li>
+                </ul>
+                <a class="button button-primary" href="#application-modal" data-open-application>Подключиться</a>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt connect-section" id="process">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker">ПОДКЛЮЧЕНИЕ</p>
+            <h2>Как подключиться</h2>
+          </div>
+
+          <div class="connection-steps" aria-label="Этапы подключения">
+            <article class="connection-step">
+              <span class="connection-step-number">1</span>
+              <span class="connection-step-icon" aria-hidden="true">📝</span>
+              <h3>Оставляете заявку</h3>
+              <p>Заполните форму на сайте или позвоните — это займёт не больше минуты.</p>
+            </article>
+            <article class="connection-step">
+              <span class="connection-step-number">2</span>
+              <span class="connection-step-icon" aria-hidden="true">📞</span>
+              <h3>Мы связываемся с вами</h3>
+              <p>Уточняем адрес, отвечаем на вопросы и согласовываем удобное время подключения.</p>
+            </article>
+            <article class="connection-step">
+              <span class="connection-step-number">3</span>
+              <span class="connection-step-icon" aria-hidden="true">👨‍🔧</span>
+              <h3>Приезжаем и подключаем</h3>
+              <p>Специалист приедет к вам, проведёт подключение и всё настроит под ключ.</p>
+            </article>
+            <article class="connection-step">
+              <span class="connection-step-number">4</span>
+              <span class="connection-step-icon" aria-hidden="true">🌐</span>
+              <h3>Вы пользуетесь интернетом</h3>
+              <p>Интернет работает стабильно — вы просто пользуетесь без лишних забот.</p>
+            </article>
+          </div>
+
+          <p class="connection-note">
+            Подключаем в среднем до 3 дней — без ожиданий и лишних действий с вашей стороны
+          </p>
+
+          <div class="connection-cta">
+            <h3>Готовы подключиться?</h3>
+            <a class="button button-primary" href="#application-modal" data-open-application>Оставить заявку</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section coverage-section" id="coverage">
+        <div class="container">
+          <div class="section-head coverage-head">
+            <p class="section-kicker">ПОКРЫТИЕ</p>
+            <h2>Карта покрытия ГЕНЕЗИС</h2>
+          </div>
+
+          <div class="coverage-content">
+            <div class="coverage-copy">
+              <p>
+                Наша сеть постепенно расширяется и охватывает всё больше домов, квартир и бизнес-объектов.
+                Введите адрес, чтобы узнать, доступно ли подключение прямо сейчас.
+              </p>
+              <p>
+                Если вашего адреса пока нет в зоне покрытия — оставьте заявку, и мы сообщим, когда подключение станет доступно.
+              </p>
+              <form class="coverage-check" id="coverage-check-form">
+                <label class="coverage-search">
+                  <span class="search-icon" aria-hidden="true"></span>
+                  <input id="coverage-settlement-input" type="text" name="settlement" aria-label="Адрес для проверки покрытия" placeholder="Введите адрес">
+                </label>
+                <button class="button button-primary" type="submit">Проверить</button>
+              </form>
+            </div>
+
+            <div class="coverage-map" aria-label="Карта покрытия ГЕНЕЗИС">
+              <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A90797f22d26a44b7f0a431033d7dee10d1db553417b912d3351ac66ec779b003&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="cta-inner">
+          <h2>Интернет, который не подводит — начинается здесь</h2>
+          <p>Оставьте заявку и получите стабильное подключение без лишних действий.</p>
+          <a class="button button-primary" href="#application-modal" data-open-application>Оставить заявку</a>
+          <span>Займёт не больше минуты</span>
+        </div>
+      </section>
+    </main>
+
+    <div class="address-modal" id="address-result-modal" role="dialog" aria-modal="true" aria-labelledby="address-result-title" hidden>
+      <div class="address-modal-backdrop" data-modal-close></div>
+      <div class="address-modal-panel">
+        <button class="address-modal-close" type="button" aria-label="Закрыть окно" data-modal-close></button>
+        <p class="address-modal-kicker" id="address-result-kicker">Проверка адреса</p>
+        <h2 id="address-result-title">Результат проверки</h2>
+        <p id="address-result-text"></p>
+        <a class="button button-primary" id="address-result-action" href="#application-modal" data-open-application></a>
+      </div>
+    </div>
+
+    <div class="address-modal application-modal" id="application-modal" role="dialog" aria-modal="true" aria-labelledby="application-title" hidden>
+      <div class="address-modal-backdrop" data-application-close></div>
+      <div class="address-modal-panel application-modal-panel">
+        <button class="address-modal-close" type="button" aria-label="Закрыть окно" data-application-close></button>
+
+        <form class="application-form" id="application-form">
+          <h2 id="application-title">Заявка на подключение</h2>
+          <p class="application-subtitle">
+            Оставьте контакты — мы проверим возможность подключения и свяжемся с вами для согласования времени.
+          </p>
+
+          <label class="form-field">
+            <span>Имя</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label class="form-field">
+            <span>Телефон</span>
+            <span class="phone-field">
+              <span class="phone-prefix" aria-hidden="true">+7</span>
+              <input id="phone-input" type="tel" name="phone" autocomplete="tel-national" inputmode="numeric" placeholder="(___) ___-__-__" required>
+            </span>
+          </label>
+          <label class="form-field">
+            <span>Адрес подключения</span>
+            <input type="text" name="address" autocomplete="street-address" data-default-placeholder="" required>
+          </label>
+          <label class="form-field">
+            <span>Комментарий</span>
+            <textarea name="comment" rows="2" placeholder="Удобное время звонка, вопрос, пожелание"></textarea>
+          </label>
+
+          <button class="button button-primary application-submit" type="submit">Отправить заявку</button>
+          <p class="application-privacy">
+            Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Мы не передаём данные третьим лицам. Свяжемся только по вопросу подключения.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <div class="address-modal application-success-modal" id="application-success-modal" role="dialog" aria-modal="true" aria-labelledby="application-success-title" hidden>
+      <div class="address-modal-backdrop" data-success-close></div>
+      <div class="address-modal-panel application-success-panel">
+        <button class="address-modal-close" type="button" aria-label="Закрыть окно" data-success-close></button>
+        <div class="application-success">
+          <h2 id="application-success-title">Заявка отправлена!</h2>
+          <p>
+            Спасибо! Мы получили вашу заявку.
+            Специалист свяжется с вами в ближайшее время для проверки адреса и согласования подключения.
+          </p>
+          <button class="button button-primary" type="button" data-success-close>Понятно</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-main">
+          <div class="footer-about">
+            <a class="footer-brand" href="#top">ГЕНЕЗИС</a>
+            <p>Стабильный интернет для дома, бизнеса и объектов с высокой нагрузкой. Подключаем, настраиваем и остаёмся на связи каждый день.</p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Навигация в футере">
+            <a href="#top">Главная</a>
+            <a href="#work">Тарифы</a>
+            <a href="#coverage">Покрытие</a>
+            <a href="#process">Подключение</a>
+            <a href="#contact">Контакты</a>
+          </nav>
+
+          <div class="footer-contact">
+            <span class="footer-status">Поддержка 24/7</span>
+            <p>Оставьте заявку — проверим адрес и подберём оптимальный тариф.</p>
+            <a class="button button-primary" href="#application-modal" data-open-application>Оставить заявку</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 ГЕНЕЗИС. Все права защищены.</span>
+          <span>Интернет • Решения • Будущее</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

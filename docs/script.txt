@@ -1,0 +1,380 @@
+const availableSettlements = [
+  "Гладковка",
+  "Таврийское",
+  "Малые Копани",
+  "Новая Збурьевка",
+  "Новониколаевка",
+];
+
+const normalizeSettlement = (value) =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/ё/g, "е")
+    .replace(/\s+/g, " ");
+
+const availableSettlementNames = new Map(
+  availableSettlements.map((settlement) => [normalizeSettlement(settlement), settlement])
+);
+
+const addressForm = document.querySelector("#address-check-form");
+const settlementInput = document.querySelector("#settlement-input");
+const coverageForm = document.querySelector("#coverage-check-form");
+const coverageSettlementInput = document.querySelector("#coverage-settlement-input");
+const addressModal = document.querySelector("#address-result-modal");
+const addressModalTitle = document.querySelector("#address-result-title");
+const addressModalText = document.querySelector("#address-result-text");
+const addressModalAction = document.querySelector("#address-result-action");
+const addressModalKicker = document.querySelector("#address-result-kicker");
+
+const applicationModal = document.querySelector("#application-modal");
+const applicationForm = document.querySelector("#application-form");
+const applicationSuccessModal = document.querySelector("#application-success-modal");
+const phoneInput = document.querySelector("#phone-input");
+const applicationAddressInput = applicationForm?.querySelector('input[name="address"]');
+const openApplicationButtons = document.querySelectorAll("[data-open-application]");
+const addressCloseButtons = document.querySelectorAll("[data-modal-close]");
+const applicationCloseButtons = document.querySelectorAll("[data-application-close]");
+const successCloseButtons = document.querySelectorAll("[data-success-close]");
+const headerAnchorLinks = document.querySelectorAll('.site-header a[href^="#"]:not([data-open-application])');
+const themeToggle = document.querySelector(".theme-toggle");
+
+let lastFocusedElement = null;
+let checkedSettlement = "";
+let checkedSettlementIsAvailable = false;
+
+const setTheme = (theme) => {
+  const selectedTheme = theme === "dark" ? "dark" : "light";
+
+  document.documentElement.dataset.theme = selectedTheme;
+
+  if (themeToggle) {
+    const isDark = selectedTheme === "dark";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.setAttribute("aria-label", isDark ? "Включить светлую тему" : "Включить тёмную тему");
+  }
+
+  try {
+    localStorage.setItem("theme", selectedTheme);
+  } catch (error) {
+    // Theme still changes for the current session if storage is unavailable.
+  }
+};
+
+setTheme(document.documentElement.dataset.theme);
+
+const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
+
+const scrollToSection = (target) => {
+  const startPosition = window.scrollY;
+  const header = document.querySelector(".site-header");
+  const headerOffset = header ? header.offsetHeight + 12 : 0;
+  const sectionTitle = target.querySelector(".section-kicker, h1, h2");
+  const scrollTarget = sectionTitle || target;
+  const targetPosition = target.id === "top"
+    ? 0
+    : scrollTarget.getBoundingClientRect().top + startPosition - headerOffset;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const endPosition = Math.max(0, Math.min(targetPosition, maxScroll));
+  const distance = endPosition - startPosition;
+  const duration = Math.min(460, Math.max(260, Math.abs(distance) * 0.22));
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let startTime = null;
+
+  if (prefersReducedMotion || Math.abs(distance) < 4) {
+    window.scrollTo(0, endPosition);
+    return;
+  }
+
+  const animateScroll = (currentTime) => {
+    if (!startTime) {
+      startTime = currentTime;
+    }
+
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOutCubic(progress);
+
+    window.scrollTo(0, startPosition + distance * easedProgress);
+
+    if (progress < 1) {
+      window.requestAnimationFrame(animateScroll);
+    }
+  };
+
+  window.requestAnimationFrame(animateScroll);
+};
+
+const resultContent = {
+  available: {
+    kicker: "Адрес подходит",
+    title: "Подключение доступно",
+    text: "Отлично! По вашему адресу доступно подключение. Оставьте заявку — мы свяжемся с вами для согласования времени.",
+    action: "Оставить заявку",
+  },
+  unavailable: {
+    kicker: "Адрес не найден",
+    title: "Пока недоступно",
+    text: "Пока подключение по этому адресу недоступно. Оставьте заявку — мы сообщим, когда сеть появится в вашем районе.",
+    action: "Оставить заявку на уведомление",
+  },
+};
+
+const lockPage = () => {
+  document.body.classList.add("modal-open");
+};
+
+const unlockPage = () => {
+  if (addressModal.hidden && applicationModal.hidden && applicationSuccessModal.hidden) {
+    document.body.classList.remove("modal-open");
+  }
+};
+
+const rememberFocus = () => {
+  lastFocusedElement = document.activeElement;
+};
+
+const restoreFocus = () => {
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
+};
+
+const openAddressModal = (isAvailable, settlement) => {
+  const content = isAvailable ? resultContent.available : resultContent.unavailable;
+
+  checkedSettlement = settlement.trim();
+  checkedSettlementIsAvailable = isAvailable;
+
+  addressModalKicker.textContent = content.kicker;
+  addressModalTitle.textContent = content.title;
+  addressModalText.textContent = content.text;
+  addressModalAction.textContent = content.action;
+
+  rememberFocus();
+  addressModal.hidden = false;
+  lockPage();
+  addressModalAction.focus();
+};
+
+const closeAddressModal = ({ restore = true } = {}) => {
+  addressModal.hidden = true;
+  unlockPage();
+
+  if (restore) {
+    restoreFocus();
+  }
+};
+
+const resetApplicationModal = () => {
+  applicationForm.hidden = false;
+
+  if (applicationAddressInput) {
+    applicationAddressInput.placeholder = applicationAddressInput.dataset.defaultPlaceholder || "";
+  }
+};
+
+const getPhoneDigits = (value) => {
+  const digits = value.replace(/\D/g, "");
+
+  if (digits.length > 10 && (digits.startsWith("7") || digits.startsWith("8"))) {
+    return digits.slice(1, 11);
+  }
+
+  return digits.slice(0, 10);
+};
+
+const formatPhone = (digits) => {
+  const parts = [];
+
+  if (digits.length > 0) {
+    parts.push(`(${digits.slice(0, 3)}`);
+  }
+
+  if (digits.length >= 3) {
+    parts[0] += ")";
+  }
+
+  if (digits.length > 3) {
+    parts.push(` ${digits.slice(3, 6)}`);
+  }
+
+  if (digits.length > 6) {
+    parts.push(`-${digits.slice(6, 8)}`);
+  }
+
+  if (digits.length > 8) {
+    parts.push(`-${digits.slice(8, 10)}`);
+  }
+
+  return parts.join("");
+};
+
+const formatPhoneInput = () => {
+  if (!phoneInput) {
+    return;
+  }
+
+  const digits = getPhoneDigits(phoneInput.value);
+  phoneInput.value = formatPhone(digits);
+};
+
+const openApplicationModal = (prefillAddress = "") => {
+  rememberFocus();
+  applicationForm.reset();
+  resetApplicationModal();
+
+  if (phoneInput) {
+    phoneInput.value = "";
+  }
+
+  if (applicationAddressInput) {
+    applicationAddressInput.value = prefillAddress;
+    applicationAddressInput.placeholder = prefillAddress
+      ? "(так же можете указать улицу и номер дома)"
+      : applicationAddressInput.dataset.defaultPlaceholder || "";
+  }
+
+  applicationModal.hidden = false;
+  lockPage();
+  applicationForm.querySelector("input")?.focus();
+};
+
+const closeApplicationModal = () => {
+  applicationModal.hidden = true;
+  applicationForm.reset();
+
+  if (phoneInput) {
+    phoneInput.value = "";
+  }
+
+  resetApplicationModal();
+  unlockPage();
+  restoreFocus();
+};
+
+const openApplicationSuccessModal = () => {
+  applicationSuccessModal.hidden = false;
+  lockPage();
+  applicationSuccessModal.querySelector(".application-success .button")?.focus();
+};
+
+const closeApplicationSuccessModal = () => {
+  applicationSuccessModal.hidden = true;
+  unlockPage();
+  restoreFocus();
+};
+
+const checkSettlementAvailability = (input) => {
+  if (!input) {
+    return;
+  }
+
+  const settlement = normalizeSettlement(input.value);
+  const rawSettlement = input.value.trim();
+  const matchedSettlement = availableSettlementNames.get(settlement);
+  const isAvailable = Boolean(matchedSettlement);
+
+  openAddressModal(isAvailable, matchedSettlement || rawSettlement);
+};
+
+addressForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  checkSettlementAvailability(settlementInput);
+});
+
+coverageForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  checkSettlementAvailability(coverageSettlementInput);
+});
+
+headerAnchorLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetId = link.getAttribute("href");
+    const target = targetId ? document.querySelector(targetId) : null;
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToSection(target);
+  });
+});
+
+themeToggle?.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme;
+  setTheme(currentTheme === "dark" ? "light" : "dark");
+});
+
+openApplicationButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (!addressModal.hidden) {
+      closeAddressModal({ restore: false });
+    }
+
+    const shouldPrefillAddress = button === addressModalAction && checkedSettlementIsAvailable;
+    openApplicationModal(shouldPrefillAddress ? checkedSettlement : "");
+  });
+});
+
+addressCloseButtons.forEach((button) => {
+  button.addEventListener("click", () => closeAddressModal());
+});
+
+applicationCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeApplicationModal);
+});
+
+successCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeApplicationSuccessModal);
+});
+
+phoneInput?.addEventListener("input", () => {
+  phoneInput.setCustomValidity("");
+  formatPhoneInput();
+});
+
+applicationForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (phoneInput && getPhoneDigits(phoneInput.value).length < 10) {
+    phoneInput.setCustomValidity("Введите номер телефона полностью");
+    phoneInput.reportValidity();
+    return;
+  }
+
+  applicationModal.hidden = true;
+  applicationForm.reset();
+
+  if (phoneInput) {
+    phoneInput.value = "";
+  }
+
+  resetApplicationModal();
+  openApplicationSuccessModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") {
+    return;
+  }
+
+  if (!applicationSuccessModal.hidden) {
+    closeApplicationSuccessModal();
+    return;
+  }
+
+  if (!applicationModal.hidden) {
+    closeApplicationModal();
+    return;
+  }
+
+  if (!addressModal.hidden) {
+    closeAddressModal();
+  }
+});

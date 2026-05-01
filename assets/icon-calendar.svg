@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="calendarStroke" x1="11" y1="54" x2="53" y2="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E90FF"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+    <filter id="calendarGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 0.76 0 0 0 0 1 0 0 0 0.5 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="10" y="14" width="44" height="40" rx="6" stroke="url(#calendarStroke)" stroke-width="4" filter="url(#calendarGlow)"/>
+  <path d="M10 26h44" stroke="url(#calendarStroke)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M21 9v10M43 9v10" stroke="#F4F8FB" stroke-width="4" stroke-linecap="round"/>
+  <path d="M21 36h5M32 36h5M43 36h5M21 45h5M32 45h5" stroke="#00C2FF" stroke-width="4" stroke-linecap="round"/>
+</svg>

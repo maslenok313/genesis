@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="headsetStroke" x1="10" y1="54" x2="54" y2="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E90FF"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+    <filter id="headsetGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 0.76 0 0 0 0 1 0 0 0 0.52 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M13 35v-4c0-10.5 8.5-19 19-19s19 8.5 19 19v4" stroke="url(#headsetStroke)" stroke-width="4" stroke-linecap="round" filter="url(#headsetGlow)"/>
+  <path d="M18 34h-3.2A4.8 4.8 0 0 0 10 38.8v6.4a4.8 4.8 0 0 0 4.8 4.8H18V34Z" stroke="url(#headsetStroke)" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M46 50h3.2a4.8 4.8 0 0 0 4.8-4.8v-6.4a4.8 4.8 0 0 0-4.8-4.8H46v16Z" stroke="url(#headsetStroke)" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M46 50c0 4.4-3.6 8-8 8h-6" stroke="#00C2FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M28 58h4" stroke="#F4F8FB" stroke-width="4" stroke-linecap="round"/>
+</svg>
