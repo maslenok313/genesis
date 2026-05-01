@@ -288,6 +288,7 @@ const closeMobileMenu = () => {
   document.body.classList.remove("mobile-menu-open");
   mobileMenuToggle.setAttribute("aria-expanded", "false");
   mobileMenuToggle.setAttribute("aria-label", "Открыть меню");
+  mobileMenuToggle.blur();
 };
 
 const toggleMobileMenu = () => {
@@ -375,6 +376,7 @@ window.addEventListener("resize", () => {
 themeToggle?.addEventListener("click", () => {
   const currentTheme = document.documentElement.dataset.theme;
   setTheme(currentTheme === "dark" ? "light" : "dark");
+  themeToggle.blur();
 });
 
 openApplicationButtons.forEach((button) => {
